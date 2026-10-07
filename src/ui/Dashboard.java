@@ -2,6 +2,8 @@ package ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.ResultSet;
+
 import dao.Tranctiondao;
 
 public class Dashboard extends JFrame {
@@ -64,9 +66,20 @@ public class Dashboard extends JFrame {
         JButton addTransactionBtn =
                 new JButton("Add Transaction");
 
+
         JButton transactionBtn =
                 new JButton("Transactions");
+        JButton budgetBtn =
+                new JButton("Budget");
 
+        budgetBtn.addActionListener(e -> {
+            new BudgetFrame(userId);
+        });
+        JButton viewBudgetBtn = new JButton("View Budgets");
+
+        viewBudgetBtn.addActionListener(e -> {
+            new BudgetListFrame(userId);
+        });
         JButton settingsBtn =
                 new JButton("Settings");
 
@@ -96,6 +109,10 @@ public class Dashboard extends JFrame {
         sidebar.add(transactionBtn);
         sidebar.add(Box.createVerticalStrut(10));
 
+        sidebar.add(budgetBtn);
+        sidebar.add(Box.createVerticalStrut(10));
+        sidebar.add(viewBudgetBtn);
+        sidebar.add(Box.createVerticalStrut(10));
         sidebar.add(settingsBtn);
 
         sidebar.add(Box.createVerticalGlue());
@@ -218,60 +235,54 @@ public class Dashboard extends JFrame {
         );
 
         transactionPanel.setLayout(
-                new GridLayout(4, 3, 10, 10)
+                new GridLayout(5, 3, 10, 10)
         );
+        transactionPanel.add(new JLabel("Category"));
+        transactionPanel.add(new JLabel("Type"));
+        transactionPanel.add(new JLabel("Amount"));
+        try {
+
+            ResultSet rs =
+                    transactionDAO.getRecentTransactions(userId);
+
+            while (rs != null && rs.next()) {
+
+                String category =
+                        rs.getString("category");
+
+                String type =
+                        rs.getString("type");
+
+                double amount =
+                        rs.getDouble("amount");
+
+                transactionPanel.add(
+                        new JLabel(category)
+                );
+
+                transactionPanel.add(
+                        new JLabel(type)
+                );
+
+                String amountText;
+
+                if (type.equals("Income")) {
+                    amountText = "+ ₹" + amount;
+                } else {
+                    amountText = "- ₹" + amount;
+                }
+
+                transactionPanel.add(
+                        new JLabel(amountText)
+                );
+            }
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
 
 
-        transactionPanel.add(
-                new JLabel("Food")
-        );
-
-        transactionPanel.add(
-                new JLabel("Expense")
-        );
-
-        transactionPanel.add(
-                new JLabel("- ₹500")
-        );
-
-
-        transactionPanel.add(
-                new JLabel("Salary")
-        );
-
-        transactionPanel.add(
-                new JLabel("Income")
-        );
-
-        transactionPanel.add(
-                new JLabel("+ ₹20,000")
-        );
-
-
-        transactionPanel.add(
-                new JLabel("Shopping")
-        );
-
-        transactionPanel.add(
-                new JLabel("Expense")
-        );
-
-        transactionPanel.add(
-                new JLabel("- ₹2,000")
-        );
-
-
-        transactionPanel.add(
-                new JLabel("Freelancing")
-        );
-
-        transactionPanel.add(
-                new JLabel("Income")
-        );
-
-        transactionPanel.add(
-                new JLabel("+ ₹5,000")
-        );
 
 
         content.add(transactionPanel);

@@ -171,5 +171,32 @@ import java.sql.ResultSet;
 
                 return 0;
             }
+            public ResultSet getRecentTransactions(int userId) {
+
+                String sql =
+                        "SELECT category, type, amount " +
+                                "FROM transactions " +
+                                "WHERE user_id = ? " +
+                                "ORDER BY transaction_date DESC " +
+                                "LIMIT 4";
+
+                try {
+
+                    Connection connection = DBConnection.con();
+
+                    PreparedStatement statement =
+                            connection.prepareStatement(sql);
+
+                    statement.setInt(1, userId);
+
+                    return statement.executeQuery();
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+
+                    return null;
+                }
+            }
 }
 
