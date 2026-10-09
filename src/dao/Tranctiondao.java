@@ -198,5 +198,29 @@ import java.sql.ResultSet;
                     return null;
                 }
             }
+            public ResultSet getAllTransactions(int userId) {
+
+                String sql =
+                        "SELECT id, category, type, amount, " +
+                                "transaction_date, description " +
+                                "FROM transactions " +
+                                "WHERE user_id = ? " +
+                                "ORDER BY transaction_date DESC";
+
+                try {
+                    Connection connection = DBConnection.con();
+
+                    PreparedStatement statement =
+                            connection.prepareStatement(sql);
+
+                    statement.setInt(1, userId);
+
+                    return statement.executeQuery();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
 }
 

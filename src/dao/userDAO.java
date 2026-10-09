@@ -87,4 +87,64 @@ public class userDAO {
             return -1;
         }
     }
+
+    public boolean registerAdmin(
+            String name,
+            String email,
+            String password,
+            String verificationCode) {
+
+        // Replace this placeholder with your own secret code.
+        final String ADMIN_SECRET_CODE = "829246";
+
+        if (verificationCode == null ||
+                !ADMIN_SECRET_CODE.equals(verificationCode)) {
+            return false;
+        }
+
+        String sql = "INSERT INTO users (name, email, password, role) "
+                + "VALUES (?, ?, ?, 'Admin')";
+
+        try (
+                Connection connection = DBConnection.con();
+                PreparedStatement statement =
+                        connection.prepareStatement(sql)
+        ) {
+            statement.setString(1, name);
+            statement.setString(2, email);
+            statement.setString(3, password);
+
+            return statement.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public String getUserRole(String email, String password) {
+
+        String sql =
+                "SELECT role FROM users WHERE email = ? AND password = ?";
+
+        try (
+                Connection connection = DBConnection.con();
+                PreparedStatement statement =
+                        connection.prepareStatement(sql)
+        ) {
+            statement.setString(1, email);
+            statement.setString(2, password);
+
+            try (ResultSet result = statement.executeQuery()) {
+                if (result.next()) {
+                    return result.getString("role");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

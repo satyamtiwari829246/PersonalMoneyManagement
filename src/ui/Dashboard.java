@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.ResultSet;
 
+import dao.SecurityLogDAO;
 import dao.Tranctiondao;
 
 public class Dashboard extends JFrame {
@@ -24,12 +25,12 @@ public class Dashboard extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Main panel
+        //Main panel
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(new Color(245, 247, 250));
 
 
-        // ================= SIDEBAR =================
+        //SIDEBAR
 
         JPanel sidebar = new JPanel();
         sidebar.setPreferredSize(new Dimension(220, 650));
@@ -69,9 +70,15 @@ public class Dashboard extends JFrame {
 
         JButton transactionBtn =
                 new JButton("Transactions");
+        transactionBtn.addActionListener(e -> {
+            new TransactionHistory(userId);
+        });
+        JButton goalsBtn = new JButton("Financial Goal");
+        goalsBtn.addActionListener(e -> {
+            new GoalFrame(userId);
+        });
         JButton budgetBtn =
                 new JButton("Budget");
-
         budgetBtn.addActionListener(e -> {
             new BudgetFrame(userId);
         });
@@ -82,9 +89,25 @@ public class Dashboard extends JFrame {
         });
         JButton settingsBtn =
                 new JButton("Settings");
+        settingsBtn.addActionListener(e -> {
+            new SettingsFrame(userId);
+        });
 
         JButton logoutBtn =
                 new JButton("Logout");
+
+        logoutBtn.addActionListener(e -> {
+            SecurityLogDAO logDAO = new SecurityLogDAO();
+
+            logDAO.addLog(
+                    userId,
+                    "LOGOUT",
+                    "User logged out"
+            );
+
+            dispose();
+            new Login();
+        });
 
 
         sidebar.add(dashboardBtn);

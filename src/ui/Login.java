@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import dao.userDAO;
+import dao.SecurityLogDAO;
 public class Login extends JFrame {
 
     private JTextField emailField;
@@ -578,52 +579,33 @@ public class Login extends JFrame {
     // LOGIN FUNCTION
     // =====================================
 
+
     private void login() {
 
-        String email =
-                emailField.getText().trim();
+        String email = emailField.getText().trim();
+        String password = new String(passwordField.getPassword());
 
-        String password =
-                new String(
-                        passwordField.getPassword()
-                );
-
-        // Check empty fields
         if (email.isEmpty() || password.isEmpty()) {
-
             JOptionPane.showMessageDialog(
                     this,
                     "Please enter email and password.",
                     "KuberManager",
                     JOptionPane.WARNING_MESSAGE
             );
-
             return;
         }
 
-        // Create DAO object
         userDAO u1 = new userDAO();
 
-        // Check user in database
-        boolean result =
-                u1.loginuser(email, password);
+        boolean result = u1.loginuser(email, password);
 
-        if (result) {
-
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Login Successful!",
-                    "KuberManager",
-                    JOptionPane.INFORMATION_MESSAGE
+        if (!result) {
+            SecurityLogDAO logDAO = new SecurityLogDAO();
+            logDAO.addLog(
+                    null,
+                    "LOGIN_FAILED",
+                    "Failed login attempt for email: " + email
             );
-            int userId = u1.getUserId(email, password);
-            // Open Dashboard D
-           new  Dashboard(userId);
-
-            // Close Login window
-            dispose();
-
-        } else {
 
             JOptionPane.showMessageDialog(
                     this,
@@ -631,7 +613,52 @@ public class Login extends JFrame {
                     "KuberManager",
                     JOptionPane.ERROR_MESSAGE
             );
+            return;
         }
+
+        int userId = u1.getUserId(email, password);
+        String role = u1.getUserRole(email, password);
+
+        if (userId == -1 || role == null) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Unable to retrieve account details.",
+                    "Login Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+        //login log added here
+        SecurityLogDAO logDAO = new SecurityLogDAO();
+        logDAO.addLog(
+                userId,
+                "LOGIN_SUCCESS",
+                "User logged in successfully"
+        );
+
+
+        if ("Admin".equalsIgnoreCase(role)) {
+            new AdminDashboard(userId);
+        } else if ("User".equalsIgnoreCase(role)) {
+            new Dashboard(userId);
+        } else {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Invalid account role.",
+                    "Login Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Login Successful!",
+                "KuberManager",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
+        dispose();
     }
 
     // =====================================
