@@ -28,16 +28,16 @@ public class Login extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        // =====================================
+
         // MAIN PANEL
-        // =====================================
+
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(BACKGROUND);
 
-        // =====================================
+
         // LEFT SIDE
-        // =====================================
+
 
         JPanel leftPanel = new JPanel();
 
@@ -138,9 +138,9 @@ public class Login extends JFrame {
 
         leftPanel.add(description);
 
-        // =====================================
+
         // RIGHT SIDE
-        // =====================================
+
 
         JPanel rightPanel =
                 new JPanel(
@@ -181,9 +181,9 @@ public class Login extends JFrame {
                 )
         );
 
-        // =====================================
+
         // TITLE
-        // =====================================
+
 
         JLabel title =
                 new JLabel(
@@ -236,9 +236,9 @@ public class Login extends JFrame {
                 Box.createVerticalStrut(35)
         );
 
-        // =====================================
+
         // EMAIL
-        // =====================================
+
 
         JLabel emailLabel =
                 createLabel(
@@ -260,9 +260,9 @@ public class Login extends JFrame {
                 Box.createVerticalStrut(20)
         );
 
-        // =====================================
+
         // PASSWORD
-        // =====================================
+
 
         JLabel passwordLabel =
                 createLabel(
@@ -325,9 +325,8 @@ public class Login extends JFrame {
                 Box.createVerticalStrut(25)
         );
 
-        // =====================================
+
         // LOGIN BUTTON
-        // =====================================
 
         ModernButton loginButton =
                 new ModernButton(
@@ -352,9 +351,9 @@ public class Login extends JFrame {
                 Box.createVerticalStrut(25)
         );
 
-        // =====================================
+
         // SIGNUP LINK
-        // =====================================
+
 
         JPanel signupPanel =
                 new JPanel();
@@ -415,9 +414,9 @@ public class Login extends JFrame {
 
         rightPanel.add(card);
 
-        // =====================================
+
         // ADD PANELS
-        // =====================================
+
 
         mainPanel.add(
                 leftPanel,
@@ -434,9 +433,9 @@ public class Login extends JFrame {
         setVisible(true);
     }
 
-    // =====================================
+
     // CREATE LABEL
-    // =====================================
+
 
     private JLabel createLabel(
             String text
@@ -464,9 +463,9 @@ public class Login extends JFrame {
         return label;
     }
 
-    // =====================================
+
     // TEXT FIELD
-    // =====================================
+
 
     private JTextField createTextField() {
 
@@ -521,9 +520,9 @@ public class Login extends JFrame {
         return field;
     }
 
-    // =====================================
+
     // PASSWORD FIELD
-    // =====================================
+
 
     private void stylePasswordField(
             JPasswordField field
@@ -575,9 +574,9 @@ public class Login extends JFrame {
         );
     }
 
-    // =====================================
+
     // LOGIN FUNCTION
-    // =====================================
+
 
 
     private void login() {
@@ -661,9 +660,9 @@ public class Login extends JFrame {
         dispose();
     }
 
-    // =====================================
+
     // ROUNDED PANEL
-    // =====================================
+
 
     static class RoundedPanel
             extends JPanel {
@@ -712,9 +711,9 @@ public class Login extends JFrame {
         }
     }
 
-    // =====================================
+
     // MODERN BUTTON
-    // =====================================
+
 
     static class ModernButton
             extends JButton {
@@ -809,9 +808,9 @@ public class Login extends JFrame {
         }
     }
 
-    // =====================================
+
     // MAIN
-    // =====================================
+
 
     public static void main(
             String[] args

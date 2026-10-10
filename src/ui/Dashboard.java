@@ -20,6 +20,7 @@ public class Dashboard extends JFrame {
 
         double totalBalance =
                 totalIncome - totalExpense;
+
         setTitle("Personal Money Management");
         setSize(1000, 650);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -119,7 +120,7 @@ public class Dashboard extends JFrame {
         );
         addTransactionBtn.addActionListener(e -> {
 
-            new Addtransaction();
+            new Addtransaction(userId);
 
         });
 
@@ -186,6 +187,22 @@ public class Dashboard extends JFrame {
         content.add(
                 Box.createVerticalStrut(30)
         );
+        //lower income
+
+        if (totalBalance < 0) {
+            JLabel warningLabel = new JLabel(
+                    "⚠ Warning: Your balance is negative! " +
+                            "Your expenses are greater than your income."
+            );
+
+            warningLabel.setFont(
+                    new Font("Arial", Font.BOLD, 14)
+            );
+            warningLabel.setForeground(new Color(220, 38, 38));
+
+            content.add(warningLabel);
+            content.add(Box.createVerticalStrut(15));
+        }
 
 
         // ================= CARDS =================

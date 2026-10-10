@@ -12,10 +12,7 @@ public class BudgetDAO {
     // Add Budget
     public boolean addBudget(Budget budget) {
 
-        String sql =
-                "INSERT INTO budgets " +
-                        "(user_id, category, amount, duration) " +
-                        "VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO budgets " + "(user_id, category, amount, duration) " + "VALUES (?, ?, ?, ?)";
 
         try (
                 Connection connection = DBConnection.con();
@@ -66,7 +63,7 @@ public class BudgetDAO {
         }
     }
 
-    // Delete Budget
+    // Delete the budget
     public boolean deleteBudget(int budgetId, int userId) {
 
         String sql =

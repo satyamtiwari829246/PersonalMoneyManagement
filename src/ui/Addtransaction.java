@@ -18,9 +18,10 @@ public class Addtransaction extends JFrame {
 
     // For now we will use a test user ID.
     // Later we will get this from the logged-in user.
-    private int userId = 1;
+    private final int userId;
 
-    public Addtransaction() {
+    public Addtransaction(int userId) {
+        this.userId = userId;
 
         setTitle("KuberManager - Add Transaction");
         setSize(500, 600);
@@ -299,10 +300,18 @@ public class Addtransaction extends JFrame {
 
             // Convert amount
 
-            double amount =
-                    Double.parseDouble(
-                            amountText
-                    );
+
+            double amount = Double.parseDouble(amountText);
+
+            if (amount <= 0) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Amount must be greater than zero.",
+                        "Invalid Amount",
+                        JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
 
 
             // Convert date
@@ -482,13 +491,6 @@ public class Addtransaction extends JFrame {
     }
 
 
-    // ================= MAIN =================
 
-    public static void main(String[] args) {
-
-        SwingUtilities.invokeLater(
-                Addtransaction::new
-        );
-    }
 }
 
