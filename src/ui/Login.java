@@ -1,12 +1,33 @@
 
         package ui;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagLayout;
+import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
-import dao.userDAO;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
+
 import dao.SecurityLogDAO;
+import dao.userDAO;
 public class Login extends JFrame {
 
     private JTextField emailField;
@@ -284,10 +305,7 @@ public class Login extends JFrame {
 
         card.add(passwordField);
 
-        // =====================================
-        // FORGOT PASSWORD
-        // =====================================
-
+        // forgot passward
         JLabel forgotPassword =
                 new JLabel(
                         "Forgot Password?"
