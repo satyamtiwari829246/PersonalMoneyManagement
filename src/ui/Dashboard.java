@@ -1,8 +1,19 @@
 package ui;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.sql.ResultSet;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import dao.SecurityLogDAO;
 import dao.Tranctiondao;
@@ -31,7 +42,7 @@ public class Dashboard extends JFrame {
         mainPanel.setBackground(new Color(245, 247, 250));
 
 
-        //SIDEBAR
+        //slidbar
 
         JPanel sidebar = new JPanel();
         sidebar.setPreferredSize(new Dimension(220, 650));

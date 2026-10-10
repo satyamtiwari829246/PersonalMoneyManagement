@@ -1,16 +1,31 @@
 package ui;
 
-import dao.Tranctiondao;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.sql.ResultSet;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import dao.Tranctiondao;
 
 public class TransactionHistory extends JFrame {
 
@@ -180,7 +195,7 @@ public class TransactionHistory extends JFrame {
 
         return false;
     }
-
+      // filtering the tranction
     private void applyFilters() {
 
         LocalDate startDate;
